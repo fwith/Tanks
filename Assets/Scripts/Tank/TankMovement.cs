@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace Complete
 {
@@ -19,7 +21,6 @@ namespace Complete
         private float m_MovementInputValue;         // The current value of the movement input.
         private float m_TurnInputValue;             // The current value of the turn input.
         private float m_OriginalPitch;              // The pitch of the audio source at the start of the scene.
-
 
         private void Awake ()
         {
@@ -50,17 +51,19 @@ namespace Complete
             // The axes names are based on player number.
             m_MovementAxisName = "Vertical" + m_PlayerNumber;
             m_TurnAxisName = "Horizontal" + m_PlayerNumber;
-
+			
             // Store the original pitch of the audio source.
             m_OriginalPitch = m_MovementAudio.pitch;
         }
 
-
         private void Update ()
         {
             // Store the value of both input axes.
-            m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
-            m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+//            m_MovementInputValue = Input.GetAxis (m_MovementAxisName);
+//            m_TurnInputValue = Input.GetAxis (m_TurnAxisName);
+
+			m_MovementInputValue = CrossPlatformInputManager.GetAxis("Vertical"); 
+			m_TurnInputValue = CrossPlatformInputManager.GetAxis("Horizontal");
 
             EngineAudio ();
         }
